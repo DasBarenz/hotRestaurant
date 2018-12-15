@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Hot Restaurant</title>
+
+    <!-- Google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=BioRhyme" rel="stylesheet">
+
+    <!-- jQuery -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.7/css/materialize.min.css">
+    <script src='https://code.jquery.com/jquery.js'></script>
+    <!-- Bootstrap CDN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</head>
+
+
+
+<body>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="panel panel-default">
+                    <div class="jumbotron jumbotron-fluid bg-dark text-center">
+                        <div class="container">
+                            <h1 class="display-4 text-white">Hot Restaurant</h1>
+                            <p class="lead text-white">Make your reservation</p>
+                            <a class="btn btn-default" id="viewTableBtn" href="./tables" role="button">View Table</a>
+                            <a class="btn btn-default" id="homeBtn" href="/" role="button">Home</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class='row'>
+            <div class="col-lg-12">
+
+                <form>
+
+                    <div class="form-group row">
+
+                        <label for="title">Name</label>
+                        <textarea class="form-control validate" id="name" rows="3"></textarea>
+
+                        <label for="title">Email</label>
+                        <textarea class="form-control validate" id="email" rows="3"></textarea>
+
+                        <label for="title">Phone</label>
+                        <textarea class="form-control validate" id="phone-number" rows="3"></textarea>
+
+                        <label for="title">Unique ID</label>
+                        <textarea class="form-control validate" id="unique-id" rows="3"></textarea>
+
+                    </div>
+                    <button type="button" class="btn waves-effect waves-light" id="rserve-submit">Submit</button>
+                </form>
+
+            </div>
+
+            <div class="row">
+                <div class="col-lg-12">
+                    <br>
+                    <a href="api/reservations">API Table Link</a> ||
+                    <a href="api/waitlist">API Waitlist</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+
+        $("#rserve-submit").on("click", function (event) {
+            event.preventDefault();
+            var newReservation = {
+                name: $("#name").val().trim(),
+                phoneumber: $("#phone-number").val().trim(),
+                email: $("#email").val().trim(),
+                uniqueId: $("#unique-id").val().trim()
+            };
+
+            $.post("/api/reservations", newReservation)
+                .then(function (err, data) {
+                    // if (err) {
+                    //     alert("Please input your info for reservation");
+                    // } else {
+                    // console.log("reserve.html", data);
+                    alert("Adding reservation.");
+                });
+            // });
+        });
+
+    </script>
+</body>
+
+</html>
